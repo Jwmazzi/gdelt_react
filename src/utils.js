@@ -3,8 +3,6 @@ module.exports = {
     buildGeoJSON(data) {
 
         let features = data.map((info) => {
-            console.log(info)
-            console.log(info)
             return {
                 type: 'Feature',
                 geometry: JSON.parse(info.geom),

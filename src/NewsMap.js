@@ -30,14 +30,19 @@ export default class NewsMap extends React.Component {
 
   }
 
-  updateStories() {
+  clearMap() {
 
-    // Clear Any Existing Story Layers
     this.map.eachLayer((layer) => {
       if (layer.tag === 'storyPoint') {
         this.map.removeLayer(layer)
       }
     });
+
+  }
+
+  updateStories() {
+
+    this.clearMap()
 
     // Push New Data to Map
     L.geoJSON(utils.buildGeoJSON(this.props.data.stories), {
@@ -57,9 +62,7 @@ export default class NewsMap extends React.Component {
 
   render() {
 
-    if (this.props.data.stories.length > 0) {
-      this.updateStories()
-    }
+    if (this.map) this.updateStories()
 
     return(
       <div id="map" style={{height: 500}}></div>
