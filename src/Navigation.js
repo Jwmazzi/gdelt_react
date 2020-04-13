@@ -90,11 +90,7 @@ class Navigation extends Component {
         {/* News Specific Component Starts Here */}
         <div className="container-fluid">
           <div className="row main-row">
-            {/* <div class="col-4">
-                <div id="map"></div>
-            </div> */}
             <div className="col-4">
-              {/* <h1>Running</h1> */}
               <NewsMap data={this.state}/>
             </div>
             <div className="col-8">
