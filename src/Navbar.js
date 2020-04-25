@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 
 export default class Navbar extends Component {
@@ -9,13 +10,14 @@ export default class Navbar extends Component {
             return(
               <li key={i} className="nav-item">
                 <a style={this.props.data.cameo[info] === this.props.data.active ? {color: 'white'} : {}} 
-                className="nav-link" href={`?category=${info}`} onClick={this.props.handleClick}>{info.toUpperCase()}</a>
+                className="nav-link" href={`?category=${info}`} onClick={this.props.navbarSelect}>{info.toUpperCase()}</a>
               </li>
             )
           })
 
         return(
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{marginBottom: 15}}>
+                <Link class="navbar-brand" to="/"><img style={{height: 35, width: 35}} src="news.png"/></Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse">
                     <span className="navbar-toggler-icon"></span>
                 </button>
