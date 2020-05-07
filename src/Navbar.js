@@ -17,7 +17,7 @@ export default class Navbar extends Component {
 
         return(
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{marginBottom: 15}}>
-                <Link class="navbar-brand" to="/"><img style={{height: 35, width: 35}} src="news.png"/></Link>
+                <Link className="navbar-brand" to="/"><img alt="News" style={{height: 35, width: 35}} src="news.png"/></Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse">
                     <span className="navbar-toggler-icon"></span>
                 </button>
