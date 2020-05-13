@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+
 class Table extends Component {
 
     render() {
@@ -19,7 +20,7 @@ class Table extends Component {
 
         return(
 
-            <table id="top-ten-table" className="table table-bordered table-striped">
+            <table className="table table-bordered table-striped">
                 <thead className="thead-dark header-row">
                 <tr>
                     <th>TITLE</th>

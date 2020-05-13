@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 
 import NewsMap from './NewsMap'
 import Navbar from './Navbar'
 import Table from './Table'
 
 import axios from 'axios'
+
+const OverflowRow = styled.div`
+  height: 500px;
+  overflow-y: scroll;
+`
 
 class News extends Component {
 
@@ -64,9 +70,9 @@ class News extends Component {
               <div className="col-4">
                 <NewsMap data={this.state}/>
               </div>
-              <div className="col-8">
+              <OverflowRow className="col-8">
                 <Table data={this.state} />
-              </div>
+              </OverflowRow>
             </div>
           </div>
         </div>
