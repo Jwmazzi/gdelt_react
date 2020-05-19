@@ -36,7 +36,7 @@ class News extends Component {
 
   componentDidMount() {
 
-    axios.get('http://localhost:5000/news').then((resp)=> {
+    axios.get('https://itsy-bitsy.io/newsy?category=protest').then((resp)=> {
       this.setState({
         stories: resp.data.stories,
         last_run: new Date(resp.data.date)
@@ -52,7 +52,7 @@ class News extends Component {
     let cameo_type = event.target.innerText.toLowerCase()
     let cameo_code = this.state.cameo[cameo_type]
 
-    axios.get(`http://localhost:5000/news?category=${cameo_type}`).then((resp)=> {
+    axios.get(`https://itsy-bitsy.io/newsy?category=${cameo_type}`).then((resp)=> {
       this.setState({
         stories: resp.data.stories,
         last_run: new Date(resp.data.date),
