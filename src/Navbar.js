@@ -17,21 +17,15 @@ export default class Navbar extends Component {
 
         return(
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{marginBottom: 15}}>
-                <Link className="navbar-brand" to="/"><img alt="News" style={{height: 35, width: 35}} src="news.png"/></Link>
-                <button className="navbar-toggler" type="button" data-toggle="collapse">
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarText">
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <Link className="navbar-brand" to="/"><img alt="News" style={{height: 35, width: 35}} src="news.png"/></Link>
                     <ul className="navbar-nav mr-auto">
-                        {tabs}
+                         {tabs}
                     </ul>
-                </div>
-                <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                    <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                        <span style={{color: 'white'}}>{this.props.data.last_run.toString()}</span>
-                        </li>
-                    </ul>
+                    <span className="nav-item" style={{color: 'white'}}>{this.props.data.last_run.toString()}</span>
                 </div>
             </nav>
         )
