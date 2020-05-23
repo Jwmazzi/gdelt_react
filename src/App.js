@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import Home from './Home'
-import News from './News'
+import Last from './Last'
+import Past from './Past'
+import Itsy from './Itsy'
+
 
 class App extends Component {
 
@@ -10,7 +13,9 @@ class App extends Component {
     return (
       <Router>
         <Route exact path="/" component={Home} />
-        <Route path="/news" component={News} />
+        <Route path="/last" component={Last} />
+        <Route path="/past" component={Past} />
+        <Route path="/itsy" component={Itsy} />
       </Router>
     )
   }

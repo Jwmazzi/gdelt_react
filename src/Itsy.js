@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import NewsMap from './NewsMap'
 import Navbar from './Navbar'
+import FooterNabvar from './FooterNavbar'
 import Table from './Table'
 
 import axios from 'axios'
@@ -13,7 +14,7 @@ const OverflowRow = styled.div`
   overflow-y: scroll;
 `
 
-class News extends Component {
+class Itsy extends Component {
 
   constructor() {
     super()
@@ -65,21 +66,35 @@ class News extends Component {
   render() {
     return (
         <div>
-          <Navbar data={this.state} navbarSelect={this.navbarSelect}/>
-          <div className="container-fluid">
-            <div className="row main-row">
-              <div className="col-4">
-                <NewsMap data={this.state}/>
+        <Navbar data={this.state} navbarSelect={this.navbarSelect}/>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-6">
+              <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="addon-wrapping">@</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping"></input>
               </div>
-              <OverflowRow className="col-8">
-                <Table data={this.state} />
-              </OverflowRow>
+            </div>
+            <div className="col-6">
+            <div class="input-group mb-3">
+              <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="inputGroupFile02"></input>
+                  <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                </div>
+                <div class="input-group-append">
+                  <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <FooterNabvar />
+      </div>
     )
   }
 
 }
 
-export default News
+export default Itsy

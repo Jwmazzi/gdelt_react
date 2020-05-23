@@ -25,7 +25,7 @@ export default class Navbar extends Component {
                     <ul className="navbar-nav mr-auto">
                          {tabs}
                     </ul>
-                    <span className="nav-item" style={{color: 'white'}}>{this.props.data.last_run.toString()}</span>
+                    <i><span className="nav-item" style={{color: 'white'}}>Last Updated: {this.props.data.last_run.toString()}</span></i>
                 </div>
             </nav>
         )

@@ -4,10 +4,10 @@ import styled from 'styled-components'
 
 
 const CenterImg = styled.img`
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 100px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 500px;
   height: 500px;
 `
@@ -26,7 +26,7 @@ class Home extends Component {
 
     return (
       <div>
-        <Link to='/news'><CenterImg alt="Words" src="https://itsy-bitsy.io/words.png" /></Link>
+        <Link to='/last'><CenterImg alt="Words" src="https://itsy-bitsy.io/words.png" /></Link>
       </div>
     )
   }
