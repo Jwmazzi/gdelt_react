@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import NewsMap from './NewsMap'
-import Navbar from './Navbar'
+import HeaderNavbar from './HeaderNavbar'
 import FooterNabvar from './FooterNavbar'
 import Table from './Table'
 
@@ -66,7 +66,7 @@ class Last extends Component {
   render() {
     return (
         <div>
-          <Navbar data={this.state} navbarSelect={this.navbarSelect}/>
+          <HeaderNavbar data={this.state} navbarSelect={this.navbarSelect}/>
           <div className="container-fluid">
             <div className="row main-row">
               <div className="col-4">

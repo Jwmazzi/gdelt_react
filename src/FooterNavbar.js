@@ -2,19 +2,18 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 
-const SquareLi = styled.div`
-    border-radius:none !important;
-    margin-top: 200px
+const Squared = styled.a`
+    border-radius: 0 !important;
 `
 
 export default class FooterNavbar extends Component {
 
     render() {
         return(
-            <ul class="pagination justify-content-center">
-                <SquareLi class="page-item"><a class="page-link" href="last">Last</a></SquareLi>
-                <SquareLi class="page-item"><a class="page-link" href="past">Past</a></SquareLi>
-                <SquareLi class="page-item"><a class="page-link" href="itsy">Itsy</a></SquareLi>
+            <ul className="pagination justify-content-center">
+                <li className="page-item"><Squared className="page-link bg-dark text-white" href="last">Last</Squared></li>
+                <li className="page-item"><Squared className="page-link bg-dark text-white" href="past">Past</Squared></li>
+                <li className="page-item"><Squared className="page-link bg-dark text-white" href="itsy">Itsy</Squared></li>
             </ul>
         )
     }

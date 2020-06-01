@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 
-export default class Navbar extends Component {
+export default class HeaderNavbar extends Component {
 
     render() {
 
@@ -16,7 +16,7 @@ export default class Navbar extends Component {
           })
 
         return(
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{marginBottom: 15}}>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                     <span className="navbar-toggler-icon"></span>
                 </button>

@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import NewsMap from './NewsMap'
+import HeaderNavbar from './HeaderNavbar'
 import FooterNabvar from './FooterNavbar'
-import Navbar from './Navbar'
+import Keywords from './Keywords'
 import Table from './Table'
 
 import axios from 'axios'
@@ -14,6 +15,10 @@ const OverflowRow = styled.div`
   overflow-y: scroll;
 `
 
+const Row = styled.div`
+  margin-top: 20px;
+`
+
 class Last extends Component {
 
   constructor() {
@@ -22,7 +27,8 @@ class Last extends Component {
     this.state = {      
       last_run: "",
       stories: [],
-      active: '14',
+      version: 'v2',
+      active: '01',
       cameo: {
         comment:   '01',
         cooperate: '03',
@@ -31,16 +37,21 @@ class Last extends Component {
         protest:   '14',
         assault:   '18',
         fight:     '19'
-      }
+      },
+      keywords: []
     }
   }
 
   componentDidMount() {
 
-    axios.get('https://itsy-bitsy.io/newsy?category=protest').then((resp)=> {
+    var stories  = axios.get('https://itsy-bitsy.io/newsy?category=protest')
+    var keywords = axios.get(`http://localhost:5000/keywords?v=${this.state.version}`)
+
+    Promise.all([stories, keywords]).then((resp) => {
       this.setState({
-        stories: resp.data.stories,
-        last_run: new Date(resp.data.date)
+        stories: resp[0].data.stories,
+        last_run: new Date(resp[0].data.date),
+        keywords: resp[1].data.keywords
       })
     })
 
@@ -66,18 +77,25 @@ class Last extends Component {
   render() {
     return (
         <div>
-          <Navbar data={this.state} navbarSelect={this.navbarSelect}/>
+          <HeaderNavbar data={this.state} navbarSelect={this.navbarSelect} />
           <div className="container-fluid">
-            <div className="row main-row">
+            <Row className="row">
               <div className="col-4">
                 <NewsMap data={this.state}/>
               </div>
               <OverflowRow className="col-8">
                 <Table data={this.state} />
               </OverflowRow>
-            </div>
+            </Row>
+            <Row className="row">
+              <div className="col-12">
+              <Keywords data={this.state.keywords}/>
+              </div>
+            </Row>
           </div>
-          <FooterNabvar />
+          <Row>
+            <FooterNabvar />
+          </Row>
         </div>
     )
   }
