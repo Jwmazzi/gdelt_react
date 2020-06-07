@@ -69,6 +69,7 @@ class News extends Component {
       this.setState({
         stories: resp.data.stories,
         last_run: new Date(resp.data.date),
+        activeKey: this.state.activeKey,
         active: cameo_code,
         version: this.state.version
       })
@@ -87,6 +88,7 @@ class News extends Component {
       this.setState({
         stories: resp.data.stories,
         last_run: new Date(resp.data.date),
+        activeKey: this.state.activeKey,
         active: this.state.active,
         version: v
       })
@@ -110,13 +112,6 @@ class News extends Component {
         activeKey: k.toLowerCase() 
       })
 
-
-      // this.setState({
-      //   stories: resp.data.stories,
-      //   last_run: new Date(resp.data.date),
-      //   active: this.state.active,
-      //   version: v
-      // })
     })
 
   }
@@ -135,7 +130,7 @@ class News extends Component {
               </OverflowRow>
             </Row>
             <Row className="row">
-              <div className="col-12">
+              <div className="col-12 row justify-content-center">
               <Keywords data={this.state} select={this.keywordSelect}/>
               </div>
             </Row>

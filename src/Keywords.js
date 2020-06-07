@@ -25,6 +25,13 @@ export default class Keywords extends Component {
             )
           })
 
+        // Push Clear Button to Front of Array
+        keys.unshift(
+            <SquaredLi key='clear' onClick={this.props.select} className="list-group-item bg-info">
+                <span style={'clear' === this.props.data.activeKey ? {color: 'black'} : {color: 'white'}}>CLEAR</span>
+            </SquaredLi>
+        )
+
         return (
             <KeywordScroll>
                 <ul className="list-group list-group-horizontal-md">{keys}</ul>
