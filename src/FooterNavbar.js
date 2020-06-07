@@ -9,11 +9,22 @@ const Squared = styled.a`
 export default class FooterNavbar extends Component {
 
     render() {
+
+        let lis = ['V1', 'V2'].map((version, i) => {
+            return(
+                 <li key={i} className="page-item" onClick={this.props.navbarSelect} id="version">
+                     <Squared className="page-link bg-dark text-black" href="#">
+                         <span id="version" style={version.toLowerCase() === this.props.data.version ? {color: 'white'} : {color: 'gray'}}>
+                             {version}
+                         </span>
+                    </Squared>
+                </li>
+            )
+          })
+
         return(
             <ul className="pagination justify-content-center">
-                <li className="page-item"><Squared className="page-link bg-dark text-white" href="last">Last</Squared></li>
-                <li className="page-item"><Squared className="page-link bg-dark text-white" href="past">Past</Squared></li>
-                <li className="page-item"><Squared className="page-link bg-dark text-white" href="itsy">Itsy</Squared></li>
+                {lis}
             </ul>
         )
     }

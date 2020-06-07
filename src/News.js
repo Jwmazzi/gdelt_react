@@ -19,7 +19,7 @@ const Row = styled.div`
   margin-top: 20px;
 `
 
-class Last extends Component {
+class News extends Component {
 
   constructor() {
     super()
@@ -29,6 +29,8 @@ class Last extends Component {
       stories: [],
       version: 'v2',
       active: '01',
+      activeKey: '',
+      keywords: [],
       cameo: {
         comment:   '01',
         cooperate: '03',
@@ -37,8 +39,7 @@ class Last extends Component {
         protest:   '14',
         assault:   '18',
         fight:     '19'
-      },
-      keywords: []
+      }
     }
   }
 
@@ -57,19 +58,65 @@ class Last extends Component {
 
   }
 
-  navbarSelect = (event) => {
+  headerSelect = (event) => {
 
     event.preventDefault()
 
     let cameo_type = event.target.innerText.toLowerCase()
     let cameo_code = this.state.cameo[cameo_type]
 
-    axios.get(`https://itsy-bitsy.io/newsy?category=${cameo_type}`).then((resp)=> {
+    axios.get(`http://localhost:5000/newsy?category=${cameo_type}&v=${this.state.version}`).then((resp)=> {
       this.setState({
         stories: resp.data.stories,
         last_run: new Date(resp.data.date),
-        active: cameo_code
+        active: cameo_code,
+        version: this.state.version
       })
+    })
+
+  }
+
+  footerSelect = (event) => {
+
+    event.preventDefault()
+
+    let v = event.target.innerText.toLowerCase()
+    let c = Object.keys(this.state.cameo).find(key => this.state.cameo[key] === this.state.active)
+
+    axios.get(`http://localhost:5000/newsy?category=${c}&v=${v}`).then((resp)=> {
+      this.setState({
+        stories: resp.data.stories,
+        last_run: new Date(resp.data.date),
+        active: this.state.active,
+        version: v
+      })
+    })
+
+  }
+
+  keywordSelect = (event) => {
+
+    event.preventDefault()
+
+    let k = event.target.innerText.split(' ')[0]
+    let c = Object.keys(this.state.cameo).find(key => this.state.cameo[key] === this.state.active)
+    
+    axios.get(`http://localhost:5000/newsy?category=${c}&v=${this.state.version}&keyword=${k}`).then((resp)=> {
+      this.setState({
+        stories: resp.data.stories,
+        last_run: new Date(resp.data.date),
+        active: this.state.active,
+        version: this.state.version,
+        activeKey: k.toLowerCase() 
+      })
+
+
+      // this.setState({
+      //   stories: resp.data.stories,
+      //   last_run: new Date(resp.data.date),
+      //   active: this.state.active,
+      //   version: v
+      // })
     })
 
   }
@@ -77,7 +124,7 @@ class Last extends Component {
   render() {
     return (
         <div>
-          <HeaderNavbar data={this.state} navbarSelect={this.navbarSelect} />
+          <HeaderNavbar data={this.state} navbarSelect={this.headerSelect} />
           <div className="container-fluid">
             <Row className="row">
               <div className="col-4">
@@ -89,12 +136,12 @@ class Last extends Component {
             </Row>
             <Row className="row">
               <div className="col-12">
-              <Keywords data={this.state.keywords}/>
+              <Keywords data={this.state} select={this.keywordSelect}/>
               </div>
             </Row>
           </div>
           <Row>
-            <FooterNabvar />
+            <FooterNabvar data={this.state} navbarSelect={this.footerSelect} />
           </Row>
         </div>
     )
@@ -102,4 +149,4 @@ class Last extends Component {
 
 }
 
-export default Last
+export default News

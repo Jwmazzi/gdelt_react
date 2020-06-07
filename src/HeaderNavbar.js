@@ -9,7 +9,7 @@ export default class HeaderNavbar extends Component {
         let tabs = Object.keys(this.props.data.cameo).map((info, i) => {
             return(
               <li key={i} className="nav-item">
-                <a style={this.props.data.cameo[info] === this.props.data.active ? {color: 'white'} : {}} 
+                <a style={this.props.data.cameo[info] === this.props.data.active ? {color: 'white'} : {}} id="category"
                 className="nav-link" href={`?category=${info}`} onClick={this.props.navbarSelect}>{info.toUpperCase()}</a>
               </li>
             )
