@@ -15,9 +15,6 @@ const OverflowRow = styled.div`
   overflow-y: scroll;
 `
 
-const Row = styled.div`
-  margin-top: 20px;
-`
 
 class News extends Component {
 
@@ -29,7 +26,7 @@ class News extends Component {
       stories: [],
       version: 'v2',
       active: '01',
-      activeKey: '',
+      activeKey: undefined,
       keywords: [],
       cameo: {
         comment:   '01',
@@ -46,7 +43,7 @@ class News extends Component {
   componentDidMount() {
 
     var stories  = axios.get('https://itsy-bitsy.io/newsy?category=protest')
-    var keywords = axios.get(`http://localhost:5000/keywords?v=${this.state.version}`)
+    var keywords = axios.get(`https://itsy-bitsy.io/keywords?v=${this.state.version}`)
 
     Promise.all([stories, keywords]).then((resp) => {
       this.setState({
@@ -58,19 +55,32 @@ class News extends Component {
 
   }
 
+  getQueryURL(cameoType, version, keyword) {
+
+    if (keyword === undefined) {
+      return `https://itsy-bitsy.io/newsy?category=${cameoType}&v=${version}`
+    } else {
+      return `https://itsy-bitsy.io/newsy?category=${cameoType}&v=${version}&keyword=${keyword}`
+    }
+
+  }
+
   headerSelect = (event) => {
 
     event.preventDefault()
 
-    let cameo_type = event.target.innerText.toLowerCase()
-    let cameo_code = this.state.cameo[cameo_type]
+    let ct = event.target.innerText.toLowerCase()
+    let cc = this.state.cameo[ct]
+    let kw = this.state.activeKey
 
-    axios.get(`http://localhost:5000/newsy?category=${cameo_type}&v=${this.state.version}`).then((resp)=> {
+    let headerQuery = this.getQueryURL(ct, this.state.version, kw)
+
+    axios.get(headerQuery).then((resp)=> {
       this.setState({
         stories: resp.data.stories,
         last_run: new Date(resp.data.date),
         activeKey: this.state.activeKey,
-        active: cameo_code,
+        active: cc,
         version: this.state.version
       })
     })
@@ -81,16 +91,18 @@ class News extends Component {
 
     event.preventDefault()
 
-    let v = event.target.innerText.toLowerCase()
-    let c = Object.keys(this.state.cameo).find(key => this.state.cameo[key] === this.state.active)
+    let vr = event.target.innerText.toLowerCase()
+    let ct = Object.keys(this.state.cameo).find(key => this.state.cameo[key] === this.state.active)
 
-    axios.get(`http://localhost:5000/newsy?category=${c}&v=${v}`).then((resp)=> {
+    let footerQuery = this.getQueryURL(ct, vr, this.state.activeKey)
+
+    axios.get(footerQuery).then((resp)=> {
       this.setState({
         stories: resp.data.stories,
         last_run: new Date(resp.data.date),
         activeKey: this.state.activeKey,
         active: this.state.active,
-        version: v
+        version: vr
       })
     })
 
@@ -100,18 +112,36 @@ class News extends Component {
 
     event.preventDefault()
 
-    let k = event.target.innerText.split(' ')[0]
-    let c = Object.keys(this.state.cameo).find(key => this.state.cameo[key] === this.state.active)
+    let kw = event.target.innerText.split(' ')[0]
+    let ct = Object.keys(this.state.cameo).find(key => this.state.cameo[key] === this.state.active)
+
+    let keywordQuery = this.getQueryURL(ct, this.state.version, kw)
     
-    axios.get(`http://localhost:5000/newsy?category=${c}&v=${this.state.version}&keyword=${k}`).then((resp)=> {
+    axios.get(keywordQuery).then((resp)=> {
       this.setState({
         stories: resp.data.stories,
         last_run: new Date(resp.data.date),
         active: this.state.active,
         version: this.state.version,
-        activeKey: k.toLowerCase() 
+        activeKey: kw.toLowerCase() 
       })
 
+    })
+
+  }
+
+  keywordClear = (event) => {
+
+    event.preventDefault()
+
+    console.log('Clear')
+
+    this.setState({
+      stories: this.state.stories,
+      last_run: this.state.last_run,
+      active: this.state.active,
+      version: this.state.version,
+      activeKey: undefined
     })
 
   }
@@ -121,23 +151,21 @@ class News extends Component {
         <div>
           <HeaderNavbar data={this.state} navbarSelect={this.headerSelect} />
           <div className="container-fluid">
-            <Row className="row">
+            <div style={{marginTop: '20px'}} className="row">
               <div className="col-4">
                 <NewsMap data={this.state}/>
               </div>
               <OverflowRow className="col-8">
                 <Table data={this.state} />
               </OverflowRow>
-            </Row>
-            <Row className="row">
-              <div className="col-12 row justify-content-center">
-              <Keywords data={this.state} select={this.keywordSelect}/>
+            </div>
+            <div className="col-12 row justify-content-center">
+              <Keywords data={this.state} select={this.keywordSelect} clear={this.keywordClear} />
+            </div>
+              <div style={{marginTop: '20px'}} className="col-12 row justify-content-center">
+                <FooterNabvar data={this.state} select={this.footerSelect} />
               </div>
-            </Row>
           </div>
-          <Row>
-            <FooterNabvar data={this.state} navbarSelect={this.footerSelect} />
-          </Row>
         </div>
     )
   }

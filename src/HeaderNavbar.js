@@ -7,12 +7,15 @@ export default class HeaderNavbar extends Component {
     render() {
 
         let tabs = Object.keys(this.props.data.cameo).map((info, i) => {
+
+            var className = this.props.data.cameo[info] === this.props.data.active ? "nav-item active": "nav-item"
+
             return(
-              <li key={i} className="nav-item">
-                <a style={this.props.data.cameo[info] === this.props.data.active ? {color: 'white'} : {}} id="category"
-                className="nav-link" href={`?category=${info}`} onClick={this.props.navbarSelect}>{info.toUpperCase()}</a>
+              <li key={i} className={className}>
+                <a id="category" className="nav-link" href={`?category=${info}`} onClick={this.props.navbarSelect}>{info.toUpperCase()}</a>
               </li>
             )
+            
           })
 
         return(
@@ -22,7 +25,7 @@ export default class HeaderNavbar extends Component {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <Link className="navbar-brand" to="/"><img alt="News" style={{height: 35, width: 35}} src="news.png"/></Link>
-                    <ul className="navbar-nav mr-auto">
+                    <ul id="navCategories" className="navbar-nav mr-auto">
                          {tabs}
                     </ul>
                     <i><span className="nav-item" style={{color: 'white'}}>Last Updated: {this.props.data.last_run.toString()}</span></i>

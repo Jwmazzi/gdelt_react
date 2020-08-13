@@ -26,7 +26,7 @@ class Home extends Component {
 
     return (
       <div>
-        <Link to='/last'><CenterImg alt="Words" src="https://itsy-bitsy.io/words.png" /></Link>
+        <Link to='/news'><CenterImg alt="Words" src="https://itsy-bitsy.io/words.png" /></Link>
       </div>
     )
   }

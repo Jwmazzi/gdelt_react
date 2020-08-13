@@ -18,6 +18,10 @@ class Table extends Component {
             )
         })
 
+        if (rows.length < 1) {
+            rows = <tr><td colSpan="8"><center>No Results Found For Search Terms</center></td></tr>
+        } 
+
         return(
 
             <table className="table table-bordered table-striped">
@@ -36,6 +40,7 @@ class Table extends Component {
                 </tbody>
             </table>
         )
+
     }
 
 }

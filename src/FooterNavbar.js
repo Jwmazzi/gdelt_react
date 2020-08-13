@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 
-const Squared = styled.a`
-    border-radius: 0 !important;
+const SquaredLi = styled.li`
+  border-radius: 0 !important;
 `
 
 export default class FooterNavbar extends Component {
@@ -11,19 +11,17 @@ export default class FooterNavbar extends Component {
     render() {
 
         let lis = ['V1', 'V2'].map((version, i) => {
+
+            var className = version.toLowerCase() === this.props.data.version ? "bg-info" : "bg-secondary"
             return(
-                 <li key={i} className="page-item" onClick={this.props.navbarSelect} id="version">
-                     <Squared className="page-link bg-dark text-black" href="#">
-                         <span id="version" style={version.toLowerCase() === this.props.data.version ? {color: 'white'} : {color: 'gray'}}>
-                             {version}
-                         </span>
-                    </Squared>
-                </li>
+                <SquaredLi key={i} onClick={this.props.select} className={`list-group-item ${className}`}>
+                    <span style={{color: 'white'}}>{version}</span>
+                </SquaredLi>
             )
           })
 
         return(
-            <ul className="pagination justify-content-center">
+            <ul className="list-group list-group-horizontal-md">
                 {lis}
             </ul>
         )

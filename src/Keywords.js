@@ -9,8 +9,6 @@ const KeywordScroll = styled.div`
 
 const SquaredLi = styled.li`
   border-radius: 0 !important;
-  font-style: italic;
- 
 `
 
 export default class Keywords extends Component {
@@ -18,17 +16,20 @@ export default class Keywords extends Component {
     render() {
 
         let keys = this.props.data.keywords.map((info, i) => {
+
+            var className = info[0] === this.props.data.activeKey ? "bg-info": "bg-secondary"
+
             return(
-                <SquaredLi key={i} onClick={this.props.select} className="list-group-item bg-secondary">
-                    <span style={info[0] === this.props.data.activeKey ? {color: 'black'} : {color: 'white'}}>{info[0].toUpperCase()} ({info[1]})</span>
+                <SquaredLi key={i} onClick={this.props.select} className={`list-group-item ${className}`}>
+                    <span style={{color: 'white'}}>{info[0].toUpperCase()}</span>
                 </SquaredLi>
             )
+
           })
 
-        // Push Clear Button to Front of Array
         keys.unshift(
-            <SquaredLi key='clear' onClick={this.props.select} className="list-group-item bg-info">
-                <span style={'clear' === this.props.data.activeKey ? {color: 'black'} : {color: 'white'}}>CLEAR</span>
+            <SquaredLi key='clear' onClick={this.props.clear} className="list-group-item bg-dark">
+                <span style={{color: 'white', fontStyle: 'italic'}}>RESET</span>
             </SquaredLi>
         )
 
