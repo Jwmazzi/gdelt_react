@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-import NewsMap from './NewsMap'
-import HeaderNavbar from './HeaderNavbar'
-import FooterNabvar from './FooterNavbar'
-import Keywords from './Keywords'
-import Table from './Table'
+import NewsMap from 'components/NewsMap'
+import HeaderNavbar from 'components/HeaderNavbar'
+import FooterNabvar from 'components/FooterNavbar'
+import Keywords from 'components/Keywords'
+import Table from 'components/Table'
 
 import axios from 'axios'
 
@@ -100,7 +100,7 @@ class News extends Component {
       this.setState({
         stories: resp.data.stories,
         last_run: new Date(resp.data.date),
-        activeKey: this.state.activeKey,
+        activeKey: undefined,
         active: this.state.active,
         version: vr
       })
@@ -134,14 +134,19 @@ class News extends Component {
 
     event.preventDefault()
 
-    console.log('Clear')
+    let vr = this.state.version
+    let ct = Object.keys(this.state.cameo).find(key => this.state.cameo[key] === this.state.active)
 
-    this.setState({
-      stories: this.state.stories,
-      last_run: this.state.last_run,
-      active: this.state.active,
-      version: this.state.version,
-      activeKey: undefined
+    let clearQuery = this.getQueryURL(ct, vr)
+
+    axios.get(clearQuery).then((resp)=> {
+      this.setState({
+        stories: resp.data.stories,
+        last_run: new Date(resp.data.date),
+        activeKey: undefined,
+        active: this.state.active,
+        version: vr
+      })
     })
 
   }

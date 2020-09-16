@@ -1,7 +1,7 @@
 import React from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import utils from './utils'
+import utils from 'utils'
 
 
 const geojsonMarkerOptions = {
